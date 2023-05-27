@@ -1,0 +1,55 @@
+OnFirstBoot
+{
+	LastTalk = ""
+	FinaleEnd = 0
+	CompletedStories = IARRAY
+	ReloadChain = IARRAY
+	CurrentStory = "a_deadly_gift"
+	Shell = 0
+	
+	"\![raise,OnStoryStart,a_deadly_gift]"
+}
+
+OnInitialize
+{
+	FinaleEnd = 0
+	if reference0 == "reload"
+	{
+		if ARRAYSIZE(ReloadChain) > 0 //On reload, preserve the place in the chain
+		{
+			CHAIN.IDName = ReloadChain[0]
+			CHAIN.Script = ReloadChain[1]
+			CHAIN.Index = ReloadChain[2]
+			CHAIN.StartTime = ReloadChain[3]
+		}
+		ReloadChain = IARRAY
+	}
+	else
+	{
+		LastTalk = ""
+		ReloadChain = IARRAY
+	}
+	
+}
+
+OnDestroy
+{
+	if reference0 == "reload" //On reload, preserve the place in the chain
+	{
+		ReloadChain = (CHAIN.IDName,CHAIN.Script,CHAIN.Index,CHAIN.StartTime)
+	}
+}
+
+OnBoot
+{
+	"\1\s[-1]\0%(s0)"
+	--
+	if CurrentStory == ""; "\![raise,OnNextStory]"
+	else; "\![raise,OnStoryStart,%(CurrentStory)]"
+	
+}
+
+OnClose
+{
+	"\w8\w8\-"
+}

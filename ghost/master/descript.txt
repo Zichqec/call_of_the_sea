@@ -1,0 +1,19 @@
+charset,UTF-8
+
+name,Call of the Sea
+type,ghost
+
+shiori,yaya.dll
+
+craftman,ScrapShred Drywallpatcher-Biker
+craftmanw,ScrapShred Drywallpatcher-Biker
+craftmanurl,
+
+sakura.name,Conch
+
+icon,icon.ico
+
+sstp.allowunspecifiedsend,0
+kero.seriko.defaultsurface,9
+
+balloon,Beach Day Gone Wrong

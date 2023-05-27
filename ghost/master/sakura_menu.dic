@@ -1,0 +1,102 @@
+OnMouseDoubleClick
+{
+	if reference5 == 0; OnSakuraMenu
+}
+
+OnSakuraMenu : all
+{
+	"\0\_q"
+	if SHIORI3FW.BalloonName != "Beach Day Gone Wrong"; "\![set,autoscroll,disable]"
+	if FinaleEnd == 1; "%(s1)"
+	else; "%(s0)"
+	
+	if ASEARCH(CurrentStory,CompletedStories) != -1 && CurrentStory != ""; "\![*]\q[Next,OnAiTalk]"
+	else; "\f[color,disable]\![*]Next\f[color,default]"
+	"  "
+	if LastTalk == ""; "\f[color,disable]Repeat previous\f[color,default]"
+	else; "\![*]\q[Repeat previous,OnLastTalk]"
+	"\n\n"
+	if CurrentStory == ""; "\![*]\_a[OnNewShell]Pick up a new shell\_a"
+	elseif ASEARCH(CurrentStory,CompletedStories) != -1; "\![*]\q[Pick up a new shell,OnNewShell]"
+	else; "\f[color,disable]\![*]Pick up a new shell\f[color,default]"
+	
+	"\n\n\![*]\q[Nevermind,cancel]"	
+}
+
+OnLastTalk
+{
+	LastTalk
+}
+
+OnNewShell
+{
+	if AllStoriesComplete; all :/
+	{
+		"\0\_q"
+		if SHIORI3FW.BalloonName != "Beach Day Gone Wrong"; "\![set,autoscroll,disable]"
+		foreach Stories; _story
+		{
+			_title = ""
+			_words = SPLIT(_story,"_")
+			foreach _words; _word
+			{
+				if _title != ""; _title += " "
+				
+				//Title Case
+				if !(_word == "of" && _title != ""); _word = Capitalize(_word)
+				
+				_title += _word
+			}
+			
+			if _story == "fools_errand"; _title = "Fool's Errand"
+			
+			"\![*]\q[%(_title),OnNextStory,%(_story)]\n"
+		}
+		"\n\n\![*]\q[Back,OnSakuraMenu]  \![*]\q[Nevermind,cancel]"
+	}	
+	else; OnNextStory
+}
+
+OnNextStory
+{
+	if reference0 == ""
+	{
+		foreach Stories; _story
+		{
+			if ASEARCH(_story,CompletedStories) == -1
+			{
+				"\![raise,OnStoryStart,%(_story)]"
+				return
+			}
+		}
+		"\![raise,OnStoryStart,%(ANY(Stories))]"
+	}
+	else; "\![raise,OnStoryStart,%(reference0)]"
+}
+
+Stories : array
+{
+	"a_deadly_gift"
+	"fear_of_water"
+	"fools_errand"
+}
+
+Shells : nonoverlap
+{
+	0
+	1
+	2
+}
+
+AllStoriesComplete
+{
+	foreach Stories; _story
+	{
+		if ASEARCH(_story,CompletedStories) == -1
+		{
+			0
+			return
+		}
+	}
+	1
+}

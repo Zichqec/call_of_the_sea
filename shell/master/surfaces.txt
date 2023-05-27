@@ -1,0 +1,65 @@
+descript
+{
+	version,1
+}
+
+//—————————————————————————————— Sakura surfaces ——————————————————————————————
+
+surface.append0,10,20
+{
+	animation0.interval,never
+	animation0.pattern0,overlayfast,1000,100,0,0
+	animation0.pattern1,overlayfast,1001,100,0,0
+	animation0.pattern2,overlayfast,1002,100,0,0
+	animation0.pattern3,overlayfast,1003,100,0,0
+	animation0.pattern4,overlayfast,1004,100,0,0
+	animation0.pattern5,overlayfast,1005,100,0,0
+	animation0.pattern6,overlayfast,1006,100,0,0
+	animation0.pattern7,overlayfast,1007,100,0,0
+	animation0.pattern8,overlayfast,1008,100,0,0
+	animation0.pattern9,overlayfast,1009,100,0,0
+	animation0.pattern10,overlayfast,1010,100,0,0
+	animation0.pattern11,overlayfast,1011,100,0,0
+	animation0.pattern12,overlayfast,1012,100,0,0
+	animation0.pattern13,overlayfast,1013,100,0,0
+	animation0.pattern14,overlayfast,1014,100,0,0
+	animation0.pattern15,overlayfast,1015,100,0,0
+	animation0.pattern16,overlayfast,1016,100,0,0
+	animation0.pattern17,overlayfast,1017,100,0,0
+	animation0.pattern18,overlayfast,1018,100,0,0
+	animation0.pattern19,overlayfast,1019,100,0,0
+}
+
+surface.append1,11,21
+{
+	animation0.interval,never
+	animation0.pattern0,stop,1
+	animation0.pattern1,overlayfast,1019,0,0,0
+	animation0.pattern2,overlayfast,1018,100,0,0
+	animation0.pattern3,overlayfast,1017,100,0,0
+	animation0.pattern4,overlayfast,1016,100,0,0
+	animation0.pattern5,overlayfast,1015,100,0,0
+	animation0.pattern6,overlayfast,1014,100,0,0
+	animation0.pattern7,overlayfast,1013,100,0,0
+	animation0.pattern8,overlayfast,1012,100,0,0
+	animation0.pattern9,overlayfast,1011,100,0,0
+	animation0.pattern10,overlayfast,1010,100,0,0
+	animation0.pattern11,overlayfast,1009,100,0,0
+	animation0.pattern12,overlayfast,1008,100,0,0
+	animation0.pattern13,overlayfast,1007,100,0,0
+	animation0.pattern14,overlayfast,1006,100,0,0
+	animation0.pattern15,overlayfast,1005,100,0,0
+	animation0.pattern16,overlayfast,1004,100,0,0
+	animation0.pattern17,overlayfast,1003,100,0,0
+	animation0.pattern18,overlayfast,1002,100,0,0
+	animation0.pattern19,overlayfast,1001,100,0,0
+	animation0.pattern20,overlayfast,1000,100,0,0
+	
+	animation1.interval,never
+	animation1.pattern0,overlayfast,1019,0,0,0
+}
+
+surface9
+{
+	//Just here to stop the notice...
+}

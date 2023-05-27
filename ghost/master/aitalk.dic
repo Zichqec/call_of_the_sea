@@ -1,0 +1,160 @@
+OnAiTalk
+{
+	if CHAIN.IDName == ""
+	{
+		LastTalk = RandomTalk
+	}
+	else
+	{
+		LastTalk = ChainTalk
+	}
+	if FinaleEnd != 1; LastTalk = "\0%(s0)\f[italic,1]\![autopause]" + LastTalk
+	LastTalk
+}
+
+RandomTalk : nonoverlap_pool
+{
+	if FinaleEnd != 1
+	{
+		".\w8.\w8."
+		"... Whoosh..."
+		"... Blub blub blub..."
+		"... Bubble..."
+		"... Crackle..."
+		"... Burble..."
+		"... Plunk..."
+		"... Slosh..."
+		"... Swish..."
+		"... Splunk..."
+		//"... Gurgle..."
+		//"... Blop..."  //← don't like these ones
+		//"... Drip..."
+		//"... Bloop..."
+	}
+	else; "\0%(s1)" //Note to self - this is here in case anything interrupts what surface it's in for some reason, stop trying to remove it
+}
+
+OnStoryStart
+{
+	CurrentStory = reference0
+	FinaleEnd = 0
+	LastTalk = ""
+	--
+	if reference0 == "a_deadly_gift"
+	{
+		Shell = 0
+		LastTalk += "What is it? \n\n A gift for me? What kind of gift? \n\n C'mon, I'm no good at guessing. \n\n Fine. It's a waffle iron. \n\n A... conch shell? \n\n Yeah, it is pretty neat... I like the stripes. \n\n It does feel nice. I'll stick it on the headboard so it's close by, how's that. \n\n ... Thanks.\e:chain=a_deadly_gift"
+	}
+	elseif reference0 == "fear_of_water"
+	{
+		Shell = 1
+		LastTalk += "Hm? Oh, the shell? I picked it up while I was out, I thought it looked interesting. \n\n Yes, it's one of those ones where if you put your ear to it, it sounds like waves at the beach. \n\n You would think, but I actually thought it was more soothing than anything. \n\n Yes, I'll find a spot for it. Maybe on the shelf here.\e:chain=fear_of_water"
+	}
+	elseif reference0 == "fools_errand"
+	{
+		Shell = 2
+		LastTalk += "You're pretty neat, aren't you.\w8\w8\w8\w8 ... Yep, sounds like a conch shell. Not sure what I was expecting.\w8\w8\w8\w8\n\n... Might be my best find today. Not a scratch on you, huh?\e:chain=fools_errand"
+	}
+	if AllStoriesComplete; Shell = Shells
+	
+	LastTalk = "\0%(s0)\f[italic,1]\![autopause]" + LastTalk
+	LastTalk
+}
+
+OnStoryEnd
+{
+	if ASEARCH(CurrentStory,CompletedStories) == -1; CompletedStories ,= CurrentStory
+	CurrentStory = ""
+	
+	if reference0 == "fools_errand"; FinaleEnd = 1
+}
+
+a_deadly_gift
+{{CHAIN
+	"Geez, how am I supposed to top this one? Where'd she even find it? Where does she find \f[italic,0]any\f[italic,1] of this stuff. \n\n ... Hmph."
+	"I'm so sick of being cooped up in this place. I want to go \f[italic,0]somewhere\f[italic,1], I don't even care where. \n\n That sounds like a lot of people, I don't want to deal with people. \n\n Ok, fine, yes, I lied, I do care where we go. I just want some quiet. \n\n What about the beach? Maybe we could find more of those shells,%(br)that'd be something."
+	"I'll just sit here for a while. \n\n Yeah, it's fine. \n\n I'll watch, I just need to rest my legs for a minute. \n\n ... I guess I understand why people like the beach, now. It's sort of soothing to listen to the waves.\w8\w8 The sand bites, though. I could do with less sand. \n\n Yeah, I'll just be here."
+	"Ow, ow, careful. \n\n It's fine, I'm just sore. \n\n Yeah. I don't know what possessed me to think a beach day was a good idea, I'm paying for it now. \n\n ... It \f[italic,0]was\f[italic,1] nice out there though, wasn't it? Just us, and the waves... \n\n Huh? \n\n Aw, c'mon, knock it off. I just felt like getting out for a bit. \n\n Yeah, whatever. Like shell collections are a strange thing to have."
+	"I just want to be doing something. \n\n I dunno, I was enjoying it for a while but the plot really lost me. I can't put my finger on why, it's just... I dunno. \n\n Yeah, maybe. I'll put it down for now and come back to it later. Maybe I just need a break."
+	"Huh? What did you say, I zoned out. \n\n I'm just feeling tired lately. All these appointments are really sapping my energy. \n\n A rest day? ... Yeah, that sounds nice,%(br)actually. \n\n Don't give me that look. I'm fine. \n\n Look, I'll even prove it to you. We can go to the beach again and this time I'll go in the water. \n\n I'll be fine. The water sounds nice right about now anyhow."
+	"Come on, it's not that cold. \n\n Really, it's not. Look, I'm up to my knees already. It's easy. \n\n Whoa%(endash) \n\n Hey, hey, I'm fine, calm down. I just lost my balance. \n\n Fine, ok, we'll sit on the shore for a bit. \n\n Huh? \n\n Oh, towel, yeah. Thanks. \n\n It's not that bad out there, it's just a few waves. \n\n Am I? \n\n I feel fine though, I don't want to go home yet, we just got here. \n\n ... Fine."
+	"Sigh... I didn't realize how much more open it feels out there. Being trapped in these same four walls is driving me crazy. Maybe I can get her to take me out again soon. Maybe...\w8\w8\w8\w8\n\nI'd like to float for a while, that sounds nice. Then I wouldn't need these stupid legs. \n\n ... What am I saying, that sounds cold and wet and miserable."
+	"No. \n\n Not really. \n\n Ugh, there's not ANYTHING to do in here. \n\n It's just boring! I'm in the same place all the time, except when I have to go see some ""expert"" that can't actually help me. \n\n I want to GO places and SEE things and feel the wind and smell the salt and enjoy the coldness of the water. But instead I'm stuck in here, reading and watching and hearing about OTHER people enjoying those things, and I hate it. I hate it! \n\n Whatever, they'll never be able to fix me, so I guess I'll just be miserable forever."
+	"I can hear the waves from here... The beach isn't \f[italic,0]that\f[italic,1] far away, is it? I can walk that far... She doesn't need to fuss over me more, I'll be fine. Right?\w8\w8\w8\w8 Right. Who is she to stop me anyways, I'm a grown adult. I can handle myself."
+	"Ohh it's colder tonight... Maybe just a little further.\w8\w8\w8\w8 ... The moon is really pretty.\w8\w8\w8\w8\w8\w8\w8 Ack%(endash)\w8\w8\w8 \n\n Ok ok, whoa, that was a little much. ... When did I get so far out? I should go back a little...\w8\w8\w8\w8\n\n Ah hell. I forgot to bring a towel. Geez... I guess I should head home. But..."
+	"Yeah whatever, you're not my mom. \n\n Well you're acting like it! \n\n I would have been \f[italic,0]fine\f[italic,1] if I didn't forget a towel. \n\n You don't need to be breathing down my neck about every little thing, it was an \f[italic,0]accident, \f[italic,1]ok? \n\n ... I know you're worried. I didn't mean to worry you. I just don't like feeling like I'm trapped in here. \n\n ... Ok."
+	"Can't we go out? It's clear out there, it's perfect weather. \n\n Come on, a runny nose isn't going to kill me. If anything the fresh air would probably be good. \n\n I can rest while we're there! \n\n Fine, whatever. I'll just sit inside and rot I guess."
+	"Look, I'm sorry. I'm just really frustrated right now. \n\n Please, I know I'm still a little sick, but I NEED to get out of this place for a bit. I feel like I'm drowning in here. \n\n No, I'm fine. The air is just so thick and stuffy. \n\n Maybe it's that new candle you were burning, maybe it's bothering me. \n\n Ok."
+	"I just want to be out there in the waves. Is that so bad? I feel like if I said that to her she'd look at me like I'm crazy.\w8\w8\w8\w8\n\nBut... I feel so \f[italic,0]free\f[italic,1] out there. In a way I never do in here. What's wrong with feeling free?\w8\w8\w8\w8\n\nShe just doesn't understand. She can't. She's not trapped in bed all the time.\w8\w8\w8\w8\n\nI hear the waves again... If only I weren't so tired..."
+	"It's just a little rain, it's not gonna kill us. We can bring an umbrella, even. \n\n Come on, we had this all planned and now I have to stay inside again. Can't you see how frustrating that is? \n\n It's barely sprinkling out there! We'd%(br)be fine. \n\n Couldn't we just get close enough to sit and listen to the ocean? \n\n Ugh, fine, whatever. You don't get it."
+	"It's just a little rain... If she follows me out she'll see it's not that bad. And I'll take the umbrella so she can't%(br)gripe at me. Besides, even if she gets upset, it's worth it to not have to lie around in here all day, right...?\w8\w8\w8\w8\n\nThe waves sound so nice..."
+	"Come on, it's just a little water! What's the big deal! \n\n No, I'm going and you're not gonna stop me. I \f[italic,0]need\f[italic,1] to be out here today. \n\n You don't have to come if you want to stay in, but I'm going!"
+	"\![raise,OnStoryEnd,a_deadly_gift]No! I'm not coming back! You just want to trap me, I'm \f[italic,0]free\f[italic,1] out here, don't you see that? \n\n I'm%(endash)\w8\w8 ack%(endash)\w8\w8\w8\w8\n\n No, no, stay away! I'm not going back, I'm not, I belong out here, with the waves and the wind and%(endash)\e:chain=end"
+}}CHAIN
+
+fear_of_water
+{{CHAIN
+	"Mm. It's been one of \f[italic,0]those\f[italic,1] days. \n\n Indeed. I feel anxious for no reason, and I can't seem to shake it. Hence all the tea. \n\n Yes, and the candles also. \n\n That sounds nice, let's do that."
+	"I am feeling antsy again, today. \n\n I don't know, maybe I haven't been keeping up with things as well as I should. \n\n I was thinking about taking a walk later, would you want to come with me? I thought maybe we could go down near the shore. \n\n Yes, I know. Maybe I'm feeling like I need to face my fear. Something like that."
+	"No no no we have to go back. I have changed my mind. My fear will go un-faced. \n\n Yes I am quite sure. This has been enough of a walk, thank you."
+	"I don't know, I am still feeling out of sorts. Perhaps I've picked up a bug from somewhere. \n\n I will let you know if I start feeling worse. \n\n Thank you."
+	"I feel like I want to go out and look at the ocean again. But that's ridiculous, right? I'm going to be just as distressed by it as ever. \n\n Yes. \n\n I don't know. Everything in me is telling me to stay far away, but I also feel like I \f[italic,0]should\f[italic,1] do it. \n\n Mm. Maybe you're right. I haven't been sleeping well lately, maybe I should get some rest."
+	"I dreamed of the sea. \n\n It was strange, I was surrounded by water everywhere, but I wasn't afraid of it. It's been a long time since I could feel that way. \n\n It was... oddly comforting. I know it is out of the ordinary, but I suppose I would not mind having such a dream again."
+	"It has been a rather bad day. I keep hearing waves, but that's ridiculous, we're nowhere near close enough to the water for that. \n\n Yes, it's all very unsettling. Maybe I should talk to someone about it. \n\n It's putting me on edge, thinking of all that water, moving, cold, and unfathomably deep..."
+	"Perhaps we should go to the shore again. \n\n I know, I know I panicked last time, but... I feel more strongly about it this time. \n\n I can't really explain it, I just feel like I need to go. \n\n Yes. \n\n We'll take it slowly, I will be fine."
+	"I...\w8\w8\w8\w8 am not sure how I feel. I want to run, but I am not sure which way. \n\n Let's stay here for a while, perhaps.\w8\w8\w8\w8\n\nIt is... beautiful in a way, isn't it? It's terrifying, but it gives me a sort of thrill. \n\n Ah, ignore me. I am just... \n\n Yes, it is a lot.\w8\w8\w8\w8\n\nRight, yes, we should leave."
+	"I'm feeling a little better today. Still anxious, but better. \n\n Yes, I think maybe our outing did me some good. Perhaps more activity will help. \n\n I feel compelled to go the same route as before. Maybe it will have a positive effect again? \n\n Tomorrow, then. If the weather holds."
+	"I suppose it will have to wait... A shame the storm could not hold off. \n\n Yes, I am alright. A little disappointed,%(br)perhaps. And, I suppose I feel a little trapped inside. \n\n It is nothing I cannot manage. \n\n Yes, thank you."
+	"I am hearing the waves again. \n\n It is still stressful, but somehow less so than the rain. \n\n I think it is within my own head, it is louder than the last time, despite the storm. \n\n Something is going on here, isn't it? This isn't normal. \n\n I don't know what is happening to me. I only feel that going to the ocean will fix it."
+	"Will this storm never break? I feel like I cannot breathe in here, I need to be outside. \n\n I don't believe so, I do not have any other symptoms of illness. \n\n I know that being outside will resolve this. I need to go out. \n\n Yes, yes, I know, I should not go out in the rain... I will wait."
+	"I know it is early, but we should hurry while we can. \n\n Yes, I have everything I need. \n\n I will be fine, I just need to be outside. I need to smell the ocean air."
+	"It is the same feeling again. I want to run... but I don't think I want to run away. Is that crazy? \n\n ... There's still the fear, it's not gone.%(br)I am \f[italic,0]terrified\f[italic,1] of what I see out there. Yet, the fear does not compel me to flee, as it did before. \n\n I am not sure.\w8\w8\w8\w8\n\n... Yes. Let us be on our way."
+	"I feel strange. I feel more trapped than I did before we went out. The ocean is calling me, I am certain of it. \n\n I do not know. I am... afraid of what this urge may be. It is not natural, of that I am certain. \n\n Yes, I will stay inside tonight. Tomorrow we can call."
+	"The waves are back, louder than ever. I know why they're here now. I feel calm when I hear them. I feel safe. \n\n I know. I cannot explain it. But, they are drowning out all of the rest of my worries. They are promising peace. \n\n Mm. Yes. As I said, I will stay inside."
+	"Perhaps... I will just head out for a short while... Just close enough to hear the waves. I will not go near enough to see them.\w8\w8\w8\w8 Yes. Yes, if I only go within earshot, that will be ok. I just need to breathe.\w8\w8\w8\w8 I \f[italic,0]need\f[italic,1] to breathe."
+	"\![raise,OnStoryEnd,fear_of_water]I hear it... I hear it...\w8\w8\w8\w8 I shouldn't go closer...\w8\w8\w8\w8 But it is so peaceful, here. The ocean would take all my worries, forever. A blissful cocoon of silence.\w8\w8\w8\w8\n\n... No. I should not. I should not, this is... This is...\w8\w8\w8\w8\w8\w8\n\nIt's beautiful... Could I really...?\e:chain=end"
+}}CHAIN
+
+fools_errand
+{{CHAIN
+	"There you are, right at home. I suppose your real home would be back in the sea, but this is a close enough second, eh?\w8\w8\w8\w8 Well, it'll have to do. I'll check in on you later."
+	"Look at this mess. Who even knew a lamp could smash into so many pieces?\w8\w8\w8 Thing's tacky as all hell too, it's not even worth fixing. Ahh what I wouldn't give to be back at the beach looking for debris instead of spending hours reassembling this hideous thing, and putting my back out in the process."
+	"Another twenty-four shells today. Not a bad haul. A few more days collecting and I should have enough...\w8\w8\w8\w8\n\nThe water looks nice.\w8\w8\w8 I mean, it'd kill me, but it looks nice.\w8\w8 Yeah.\w8\w8\w8 Anyways."
+	"You'd think he could be a \f[italic,0]little\f[italic,1] more grateful that I spent so much time on something so mundane. But who am I kidding, that old fossil doesn't actually \f[italic,0]care\f[italic,1] about the damn lamp, it's the principle of the thing.\w8\w8\w8\w8\n\nMaybe I'll change my shell idea, maybe I'll make a shell lamp that's%(br)\f[italic,0]way\f[italic,1] more hideous. I'll make them all jealous of my tacky lamp style. I bet some sucker would buy it, too."
+	"... Ah, the sea, the sea... Take me from this terrible place and its gaudy décor.\w8\w8\w8 You'd do it, wouldn't you? If I decided to run, you'd carry me away...\w8\w8\w8\w8\w8\n\nI'd stay, but sadly, the sun has other plans. So, I'll \f[italic,0]sea\f[italic,1] you later. Heh."
+	"What if I just don't go, what if I go find some more shells instead. Look at the waves. Pick up rocks. Smell the ocean air instead of stuffy perfumes and furniture polish. Yeahhh... that sounds nice.\w8\w8\w8\w8\w8%(br)Maybe I'll go after."
+	"Should have listened to my instincts,%(br)I can't breathe in this place. Too many petty people trying to drag me into their petty arguments. I need to get outside before I drown."
+	"Not much to find today... But I've been here a lot lately, huh. I suppose I've picked it all over pretty well.\w8\w8\w8\w8\n\n... It really feels like you could stay here forever, doesn't it. That would be nice.\w8\w8\w8\w8\n\nAh, cold cold cold! Don't step in the water, got it got it."
+	"I've been spending too much time over that way, I swear I can still hear the waves.\w8\w8\w8 Could be worse, I guess. At least the waves are nice.\w8\w8 Soothing...\w8\w8\w8\w8\w8\n\n... Ah, c'mon, can't just sit here forever."
+	"Maybe... I'll just take a quick look, on the way over. Get a breath of fresh air, clear my head. It couldn't hurt, right? He won't mind a few minutes delay."
+	"...\w8\w8\w8\w8 It's lovely...\w8\w8\w8\w8 But I should go, I can't stay forever, as enticing as it sounds.\w8\w8\w8\w8\w8\w8\n\nAh%(endash)\w8\w8 geez%(endash)\w8\w8\w8 The hell am I doing splashing around in the water?\w8\w8\w8\n\n... I need to get out of here."
+	"Where where where are you... What could it be...\w8\w8\w8\w8\n\nAh.\w8\w8\w8 \f[italic,0]\f[bold,1]You\f[bold,default]\f[italic,1]."
+	"It's been you the whole time, huh? Just an innocent shell, huh? Did you think I wouldn't catch on? Yeah I'm onto you, tugging me towards the sea and my certain doom. Maybe I%(br)\f[italic,0]like\f[italic,1] the whole being alive thing, actually. Did you ever think of that?"
+	"\t\![raise,OnStoryEnd,fools_errand]... Yeah that's what I thought. Your%(br)""peaceful"" wave sounds won't entice me. Get outta here!\w8\w8%(s0)\i[0,wait]\_w[1000]%(s1)\i[1]\_w[1000]\i[0]\e:chain=end"
+}}CHAIN
+
+/*
+story_name
+{{CHAIN
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	""
+	"\e:chain=end"
+}}CHAIN
+*/

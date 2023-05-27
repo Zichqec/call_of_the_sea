@@ -1,0 +1,7 @@
+charset,UTF-8
+type,ghost
+
+name,Call of the Sea
+directory,call_of_the_sea
+
+balloon.directory,beach_day_gone_wrong
