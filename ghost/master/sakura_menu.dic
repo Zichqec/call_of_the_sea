@@ -5,7 +5,7 @@ OnMouseDoubleClick
 
 OnSakuraMenu : all
 {
-	"\0\_q"
+	"\0\_q\f[anchorvisitedfontcolor,default.anchor]"
 	if SHIORI3FW.BalloonName != "Beach Day Gone Wrong"; "\![set,autoscroll,disable]"
 	if FinaleEnd == 1; "%(s1)"
 	else; "%(s0)"
@@ -20,7 +20,20 @@ OnSakuraMenu : all
 	elseif ASEARCH(CurrentStory,CompletedStories) != -1; "\![*]\q[Pick up a new shell,OnNewShell]"
 	else; "\f[color,disable]\![*]Pick up a new shell\f[color,default]"
 	
-	"\n\n\![*]\q[Nevermind,cancel]"	
+	"\n\n"
+	"\![*]Talkrate: "
+	_times = ("1m,60","3m,180","5m,300","10m,600","15m,900")
+	
+	foreach _times; _time
+	{
+		switch TOINT(_time[1]) == aitalkinterval
+		{
+			"\__q[OnChangeTalkrate,%(_time[1])]%(_time[0])\__q "
+			"\_a[OnChangeTalkrate,%(_time[1])]%(_time[0])\_a "
+		}
+	}
+	
+	"\n\![*]\q[Nevermind,cancel]"	
 }
 
 OnLastTalk
@@ -99,4 +112,10 @@ AllStoriesComplete
 		}
 	}
 	1
+}
+
+OnChangeTalkrate
+{
+	aitalkinterval = TOINT(reference0)
+	"\C\![raise,OnSakuraMenu]"
 }

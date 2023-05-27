@@ -39,6 +39,12 @@ OnTextDrop
 	if SHIORI3FW.DebugMode == 1; OnTranslateInternal.AutoPauses("\0%(s0)\f[italic,1]\![autopause]%(reference0)")
 }
 
+
+On_homeurl
+{
+	"https://raw.githubusercontent.com/Zichqec/call_of_the_sea/main/"
+}
+
 endash
 {
 	"\f[name,calibri]–\f[name,default]"
@@ -119,7 +125,7 @@ recommendsites_sakura : array
 	"Ocean sounds";	"https://mynoise.net/NoiseMachines/finWhaleUnderwaterSoundscapeGenerator.php"
 }
 
-/*
+
 On_sakura.portalsites 
 {
 	FormatLinks(portalsites_sakura)
@@ -128,17 +134,5 @@ On_sakura.portalsites
 //These are the websites linked in the second option of the sakura's right click menu. Same as above
 portalsites_sakura : array
 {
-	//"Another link label";	"https://link.example.com/link/to/whatever/here/again/"
+	"Zichqec";	"https://zichqec.github.io/s-the-skeleton/"
 }
-
-On_kero.recommendsites
-{
-	FormatLinks(recommendsites_kero)
-}
-
-//These are the websites linked in the first option of the kero's right click menu. Same as above
-recommendsites_kero : array
-{
-	//"These labels can be anything you want";	"https://link.example.com/link/to/whatever/here/once/more/"
-}
-*/

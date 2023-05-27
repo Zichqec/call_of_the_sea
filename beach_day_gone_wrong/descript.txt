@@ -5,9 +5,10 @@ use_input_alpha,1
 type,balloon
 name,Beach Day Gone Wrong
 
-craftman,ScrapShred Drywallpatcher-Biker
-craftmanw,ScrapShred Drywallpatcher-Biker
-craftmanurl,
+craftman,Zichqec
+craftmanw,Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/
+homeurl,https://zichqec.github.io/s-the-skeleton/updates/balloons/beach_day_gone_wrong/
 
 homeurl,
 origin.x,12
